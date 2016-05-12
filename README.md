@@ -6,15 +6,10 @@ resources configurations (CPU, RAM, Swap, connected users)
 
 
 Tested environment:
-
 - Ansible 2.0.2.0
-
 - Remote host: CentOS 6.7 Final
-
     - Nagios Core 3.5.1
-
     - Nagios plugin 2.0.3
-
     - NRPE 2.15
 
 ### Configuration file
@@ -23,19 +18,15 @@ This playbook centralizes configurations into file `config.yml`.
 
 - `nagios_lan_iface`: Specify interface for services. Useful when you have
   multiple interfaces in server.
-    
     - Default value: `eth0`
 
 - `nagios_admin_user`: Admin account to login nagios web interface.
-
     - Default value: `nagiosadmin`
 
 - `nagios_admin_password`: Password for admin account.
-
     - Default value: `nagios`
 
 - `nagios_email`: Email to send notification.
-
     - Default value: `root@localhost.localdomain`
 
 
@@ -66,6 +57,14 @@ Execute:
 ```
 $ ansible-playbook -i inventory site.yml
 ```
+
+### Ideas for improvements
+
+- Support Debian based distros.
+- Support CentOS 7.
+- Support to install Nagios Core 4.x.
+- Support choosing web server to install as maybe web server already existed.
+- Support both Nginx, Apache web servers.
 
 ### License
 
