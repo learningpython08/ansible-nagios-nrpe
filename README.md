@@ -59,6 +59,8 @@ have changes to monitored servers, you should edit files in `templates/nrpe.d/`
 
 Clone this repository into your machine. 
 
+Update `inventory` file to match your infrastructure.
+
 Execute:
 
 ```
