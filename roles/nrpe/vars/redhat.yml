@@ -1,0 +1,17 @@
+---
+dep_pkgs:
+  - gcc
+  - glibc
+  - glibc-common
+  - gd
+  - gd-devel
+  - net-snmp
+  - gd
+  - gd-devel
+  - gcc
+  - glibc
+  - glibc-common
+nagios_pkgs:
+  - nagios-common
+  - nagios-plugins
+  - nagios-plugins-all

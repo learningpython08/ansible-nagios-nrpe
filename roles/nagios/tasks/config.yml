@@ -1,0 +1,71 @@
+---
+- name: Deliver apache virtualhost for Nagios
+  template: src="httpd_nagios.conf" dest="/etc/httpd/conf.d/nagios.conf"
+  notify:
+    - Restart apache
+  tags:
+    - nagios
+
+- name: Make index.html file exists under root dir
+  file: src="/var/www/error/noindex.html" dest="/var/www/html/index.html" state=link
+  tags:
+    - nagios
+
+- name: Setup htpasswd for Admin user
+  htpasswd: path="{{ htpasswd_file }}" name="{{ admin_user }}" password="{{ admin_password }}"
+  tags:
+    - nagios
+
+- name: Setup configuration directory for client servers
+  file: path="{{ host_dir }}" state=directory
+  tags:
+    - nagios
+
+- name: Update nagios.conf file - include files from subdir
+  lineinfile: >
+    line="cfg_dir={{ host_dir }}"
+    insertbefore="cfg_dir=/etc/nagios/conf.d"
+    dest="/etc/nagios/nagios.cfg"
+  tags:
+    - nagios
+
+- name: Deliver commands definition for remote hosts
+  template: src="objects/commands.cfg" dest="/etc/nagios/objects/commands.cfg"
+  notify:
+    - Restart nagios
+  tags:
+    - nagios
+
+- name: Generate common configuration files for hosts
+  copy: src="nagios_commons.cfg" dest="roles/nagios/templates/hosts/{{ item }}.cfg" force=no
+  with_items:
+    - "{{ groups['nagios_client'] }}"
+  delegate_to: localhost
+  tags:
+    - nagios
+
+- name: Deliver monitoring configuration for nagios server
+  template: src="objects/localhost.cfg" dest="/etc/nagios/objects/localhost.cfg"
+  notify:
+    - Restart nagios
+  tags:
+    - nagios
+
+- name: Deliver contacts difinition for notification
+  template: src="objects/contacts.cfg" dest="/etc/nagios/objects/contacts.cfg"
+  notify:
+    - Restart nagios
+  tags:
+    - nagios
+
+- name: Deliver monitoring configuration for each hosts
+  template: >
+    src="hosts/{{ item }}.cfg"
+    dest="{{ host_dir }}/{{ item }}.cfg"
+  with_items: 
+    - "{{ groups['nagios_client'] }}"
+  notify:
+    - Restart nagios
+  tags:
+    - nagios
+

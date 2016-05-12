@@ -1,0 +1,4 @@
+[nagios_server]
+10.0.0.11
+[nagios_client]
+10.0.0.12

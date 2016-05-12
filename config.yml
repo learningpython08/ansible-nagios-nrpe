@@ -1,0 +1,11 @@
+---
+
+## network interface binds to nagios services, default is 'eth0'
+nagios_lan_iface: eth1
+
+## Admin user to login nagios web
+#nagios_admin_user: nagiosadmin
+#nagios_admin_password: nagios
+
+## Notification email
+#nagios_email: "root@localhost.localdomain"

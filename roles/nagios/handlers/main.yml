@@ -1,0 +1,15 @@
+---
+- name: Restart nagios
+  service: name=nagios state=restarted enabled=yes
+  tags:
+    - nagios
+
+- name: Restart apache
+  service: name=httpd state=restarted enabled=yes
+  tags:
+    - nagios
+
+- name: Restart nrpe
+  service: name=nrpe state=restarted enabled=yes
+  tags:
+    - nagios

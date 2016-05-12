@@ -1,0 +1,21 @@
+---
+dep_pkgs:
+  - python-passlib
+  - httpd
+  - php
+  - php-cli
+  - gcc
+  - glibc
+  - glibc-common
+  - gd
+  - gd-devel
+  - net-snmp
+  - gd
+  - gd-devel
+  - gcc
+  - glibc
+  - glibc-common
+nagios_pkgs:
+  - nagios
+  - nagios-plugins
+  - nagios-plugins-all

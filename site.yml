@@ -1,0 +1,5 @@
+---
+- include: yml/all.yml
+- include: yml/localhost.yml
+- include: yml/nagiosserver.yml
+- include: yml/nagiosclients.yml

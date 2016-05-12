@@ -1,0 +1,7 @@
+---
+- hosts: nagios_server
+  vars_files: 
+    - config.yml
+  roles:
+    - nagios
+

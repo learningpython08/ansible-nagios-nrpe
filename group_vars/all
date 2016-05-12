@@ -1,0 +1,9 @@
+---
+notification_email: "{{ nagios_email | default('root@localhost.localdomain') }}"
+lan_iface: "{{ nagios_lan_iface | default('eth0') }}"
+lan_net: "{{ hostvars[inventory_hostname] | get_net(lan_iface) }}"
+lan_prefix: "{{ hostvars[inventory_hostname] | get_prefix(lan_iface) }}"
+htpasswd_file: "/etc/nagios/passwd" 
+admin_user: "{{ nagios_admin_user | default('nagiosadmin') }}"
+admin_password: "{{ nagios_admin_password | default('nagios') }}"
+host_dir: "/etc/nagios/servers"

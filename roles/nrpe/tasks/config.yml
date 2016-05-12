@@ -1,0 +1,35 @@
+---
+- name: Allow control host to connect
+  lineinfile: >
+    regexp="^allowed_hosts"
+    line="allowed_hosts=127.0.0.1, {{ hostvars[groups['nagios_server'][0]] | get_ip(lan_iface)}}"
+    dest="/etc/nagios/nrpe.cfg"
+  notify:
+    - Restart nrpe
+  tags:
+    - nrpe
+
+- name: Deliver nrpe.cfg file 
+  template: src="nrpe.cfg" dest="/etc/nagios"
+  notify:
+    - Restart nrpe
+  tags:
+    - nrpe
+
+- name: Generate custom nrpe files for remote hosts
+  copy: src="nrpe_commons.cfg" dest="roles/nrpe/templates/nrpe.d/{{ item }}.cfg"
+  with_items:
+    - "{{ groups['nagios_client'] }}"
+  delegate_to: localhost
+  tags:
+    - nrpe
+
+- name: Get custom configuration file
+  template: src="nrpe.d/{{ item }}.cfg" dest="/etc/nrpe.d/{{ item }}.cfg"
+  ignore_errors: True
+  with_items: 
+    - "{{ groups['nagios_client'] }}"
+  notify:
+    - Restart nrpe
+  tags:
+    - nrpe

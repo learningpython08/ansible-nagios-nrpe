@@ -1,0 +1,19 @@
+---
+- name: Install dependency packages
+  yum: pkg="{{ item }}"
+  with_items: "{{ dep_pkgs }}"
+  tags:
+    - nrpe
+
+- name: Install nrpe package
+  yum: pkg="nrpe"
+  tags:
+    - nrpe
+
+- name: Install nagios plugins
+  yum: pkg="{{ item }}"
+  with_items: "{{ nagios_pkgs }}"
+  tags:
+    - nrpe
+
+  

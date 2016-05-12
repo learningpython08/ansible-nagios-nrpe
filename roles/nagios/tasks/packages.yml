@@ -1,0 +1,27 @@
+---
+- name: Enable EPEL repository
+  yum: name=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+  tags:
+    - nagios
+
+- name: Install dependency packages
+  yum: pkg="{{ item }}"
+  with_items:
+    - "{{ dep_pkgs }}"
+  tags:
+    - nagios
+
+- name: Install nagios server package
+  yum: pkg="{{ item }}"
+  with_items:
+    - "{{ nagios_pkgs }}"
+  tags:
+    - nagios
+
+- name: Install nrpe package
+  yum: pkg="{{ item }}"
+  with_items:
+    - nrpe
+    - nagios-plugins-nrpe
+  tags:
+    - nagios
