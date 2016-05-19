@@ -1,6 +1,6 @@
 ---
 - hosts: nagios_client
   vars_files: 
-    - ../config.yml
+    - config.yml
   roles:
     - nrpe
